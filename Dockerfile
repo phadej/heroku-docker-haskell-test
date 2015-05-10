@@ -65,9 +65,9 @@ ONBUILD WORKDIR /app/src
 ONBUILD RUN cabal update
 ONBUILD RUN cabal install
 
-ONBUILD RUN mkdir -p /app/target && cp $HOME/.cabal/bin/heroku-docker-haskell-test /app/target
+ONBUILD RUN mkdir -p /app/target && cp $HOME/.cabal/bin/heroku-docker-haskell-test /app/target/heroku-docker-haskell-test
 
 # Cleanup to make slug smaller
-ONBUILD RUN rm -rf /app/src /app/.cabal
+ONBUILD RUN rm -rf /app/src /app/.cabal /app/.ghc
 
 ONBUILD EXPOSE 3000
