@@ -23,19 +23,19 @@ There are two approaches!
 ## inline-build-pack
 
 Using [inline-build-pack](https://github.com/kr/heroku-buildpack-inline), we can build our app locally, bundle artifacts, and push to Heroku.
-All three scripts: `detect`, `release`, and `compile` turn out to be no-op.
+All three scripts: [`detect`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/bin/detect), [`release`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/bin/release), and [`compile`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/bin/compile) turn out to be no-op.
 Looks like that on [cedar14](https://devcenter.heroku.com/articles/cedar-14-migration)
 stack, there is `libgmp.so.10`, so we don't need to bundle it anymore, as `heroku-buildpack-ghc` does.
 Turns out that [null-buildpack](https://github.com/ryandotsmith/null-buildpack) could be enough too.
 
 Still one problem still exist: how to build a heroku-runnable binary executable on e.g. OSX? Here the docker comes to help!
-Using two simple scripts: `prebuild` and `compilewithdocker` we produce needed executable.
+Using two simple scripts: [`prebuild`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/bin/prebuild) and [`compilewithdocker`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/bin/compilewithdocker) we produce needed executable.
 
 But committing artifacts to the repository is highly unelegant!
 
 ## Using heroku docker
 
-We can build an own `Dockerfile` to build the Haskell binaries. It's actually quite easy.
+We can build an own [`Dockerfile`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/Dockerfile) to build the Haskell binaries. It's actually quite easy.
 Unfortunately (maybe for good) Dockerfiles doesn't support multi-inheritance, so we need to install GHC manually.
 Fortunately I have previously done [docker ghc image](https://github.com/phadej/docker-ghc), so we can just copy paste GHC installing spells.
 After that we install few dependencies&dagger; so we don't need to rebuild everything when deploying.
@@ -55,4 +55,5 @@ The only negative aspect, *with greater power comes greater responsibility*, you
 ## Remarks
 
 - &dagger; we could add cabal file to docker and install exact dependencies
-- there is `.dockerignore` to ignore host cabal sandbox one uses for development
+- there is [`.dockerignore`](https://github.com/phadej/heroku-docker-haskell-test/blob/master/.dockerignore) to ignore host cabal sandbox one uses for development
+- This approach could be used to deploy scala (which takes enormous time to build e.g. play2 app), or to make Clojure deploy using uberjar.
