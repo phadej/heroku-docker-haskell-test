@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm -rf target
+mkdir target
+
+docker run --rm=true -v `pwd`:/build phadej/ghc:7.8.4 /build/bin/compilewithdocker

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+#!/bin/sh
+
+set -exu
+
+cd /build
+
+# Check sandbox
+# A bit hacky way
+if [ -f /build/cabal.sandbox.config ]; then
+  if [ "`grep 'local-repo' cabal.sandbox.config`" = "local-repo: /build/.cabal-sandbox/packages" ]; then
+  	echo "in-docker sandbox: OK"
+  else
+    rm -rf .cabal-sandbox cabal.sandbox.config dist
+  fi
+fi
+
+# Install everythring
+cabal update
+cabal sandbox init
+cabal install
+
+# chmod, so anyone can remove it
+chmod -R a+rw dist
+chmod -R a+rw target
+
+# Assemble app
+EXECUTABLE=/build/.cabal-sandbox/bin/heroku-docker-haskell-test
+
+cp $EXECUTABLE /build/target
+ldd $EXECUTABLE

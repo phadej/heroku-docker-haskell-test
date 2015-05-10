@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Usage: bin/compile <build-dir> <cache-dir> <env-dir>
+# Nothing to do, as binary is in app/
