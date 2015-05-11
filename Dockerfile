@@ -49,6 +49,6 @@ ONBUILD RUN stk install
 ONBUILD RUN mkdir -p /app/target && cp $HOME/.cabal/bin/heroku-docker-haskell-test /app/target/heroku-docker-haskell-test
 
 # Cleanup to make slug smaller
-ONBUILD RUN rm -rf /app/src /app/.cabal /app/.ghc /app/.gnupg
+ONBUILD RUN rm -rf /app/src /app/.cabal /app/.stackage /app/.ghc /app/.gnupg
 
 ONBUILD EXPOSE 3000
