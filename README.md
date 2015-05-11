@@ -42,7 +42,9 @@ After that we install few dependencies&dagger; so we don't need to rebuild every
 And finally we build our application and leave it in `/app` directory which is then picked up by heroku deployment.
 
 The first build takes time as then the build image is built, it took about 15 minutes on my machine.
-The `heroku docker:release` takes under one minute.
+The `heroku docker:release` takes under one minute. After update to use
+[`stackage-update`](https://github.com/fpco/stackage-update) in place of `cabal update` the `heroku docker:release`
+takes about half a minute.
 
 ## Conclusion
 
