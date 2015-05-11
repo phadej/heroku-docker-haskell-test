@@ -12,7 +12,7 @@ This experiment is triggered by many things:
 ## Starting point
 
 Deploying Haskell to heroku isn't simple, there are different buildpacks:
-- [Official based on Halcyon](https://github.com/mietek/haskell-on-heroku)
+- [Recommended "Haskell on Heroku"](https://github.com/mietek/haskell-on-heroku)
 - and [heroku-buildpack-ghc](https://github.com/begriffs/heroku-buildpack-ghc)
 
 With both buildpacks, and Heroku overall, I don't like that building happens in the cloud.
